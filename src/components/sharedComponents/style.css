@@ -1,0 +1,7 @@
+.drawer {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+.bordered {
+  border: 1px solid #ffc457;
+}
