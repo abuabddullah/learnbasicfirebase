@@ -1,11 +1,14 @@
-import React from 'react';
+import React from "react";
+import LogRegNav from "./LogRegNav";
+import { Outlet } from "react-router-dom";
 
 const EmailPass = () => {
-    return (
-        <div>
-            emailPass will come soon
-        </div>
-    );
+  return (
+    <div>
+      <LogRegNav />
+      <Outlet />
+    </div>
+  );
 };
 
 export default EmailPass;
