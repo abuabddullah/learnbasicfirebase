@@ -9,7 +9,7 @@ const EmailPassHome = () => {
       <br />
       <br />
       <h3>topics to cover</h3>
-      <ol>
+      <ol className="textAlignLeft">
         <li>
           <small>createUserWithEmailAndPassword(auth, email, password)</small>
         </li>
@@ -25,6 +25,16 @@ const EmailPassHome = () => {
         <li>
           <small>sendPasswordResetEmail(auth, email)</small>
         </li>
+        <li>
+          <small>PrivateRoute or ProtectedRoute</small>
+          <strong>(important elemets)</strong> 
+          <ul>
+            <li>user</li>
+            <li>signing,signouting,onAuthStateChanging functions</li>
+            <li>loading</li>
+          </ul>
+        </li>
+        <li>redirecting after login</li>
       </ol>
     </div>
   );

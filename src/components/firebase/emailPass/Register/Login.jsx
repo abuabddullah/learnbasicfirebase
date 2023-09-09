@@ -3,16 +3,19 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Profile from "../Profile/Profile";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../../../../../firebase.config";
+import { UserContext } from "../UserContextProvider/UserContextProvider";
 
 const Login = () => {
-  const [user, setUser] = useState({});
+  const { user, setUserLoading } = useContext(UserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location)
+  const from = location.state?.from?.pathname || "/";
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const [userEmail, setUserEmail] = useState("");
 
@@ -30,28 +33,24 @@ const Login = () => {
     const password = form.password.value;
 
     /* must4 : set loading to true */
-    setLoading(true);
+    setUserLoading(true);
 
     /* must5 : create user with email and password */
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        setUser(user);
+        console.log(user);
         setSuccess("user created successfully");
-        setLoading(false);
         form.reset();
+        navigate(from, { replace: true })
         // ...
       })
       .catch((error) => {
         const errorMessage = error.message;
         setError(errorMessage);
-        setLoading(false);
         // ..
       });
-
-    /* must6 : set loading to false */
-    setLoading(false);
   };
 
   const handleVerifyEmail = () => {
@@ -70,7 +69,6 @@ const Login = () => {
       .catch((error) => {
         const errorMessage = error.message;
         setError(errorMessage);
-        setLoading(false);
         // ..
       });
   };
@@ -105,7 +103,7 @@ const Login = () => {
         </small>
       </form>
       <small>
-        forgot password?<i>(no need login)</i>{" "}
+        forgot password?<i>(no need login but need email in input)</i>{" "}
         <button onClick={() => handleForgotPass(userEmail)}>
           <small>click here</small>
         </button>

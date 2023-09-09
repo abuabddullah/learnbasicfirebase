@@ -14,6 +14,8 @@ import "./index.css";
 import Login from "./components/firebase/emailPass/Register/Login.jsx";
 import Profile from "./components/firebase/emailPass/Profile/Profile.jsx";
 import EmailPassHome from "./components/firebase/emailPass/EmailPassHome.jsx";
+import UserContextProvider from "./components/firebase/emailPass/UserContextProvider/UserContextProvider.jsx";
+import ProtectedRoute from "./components/firebase/emailPass/ProtectedRoute/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +57,11 @@ const router = createBrowserRouter([
               },
               {
                 path: "/firebase/emailPassLogin/profile",
-                element: <Profile />,
+                element: (
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                ),
               },
             ],
           },
@@ -71,6 +77,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
   </React.StrictMode>
 );

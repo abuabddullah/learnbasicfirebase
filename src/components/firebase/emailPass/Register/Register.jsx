@@ -1,10 +1,15 @@
 import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../../../../../firebase.config";
+import { UserContext } from "../UserContextProvider/UserContextProvider";
 
 const Register = () => {
-  const [user, setUser] = useState({});
+  const { user, setUserLoading } = useContext(UserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
+  const from = location.state?.from?.pathname || "/";
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,17 +28,18 @@ const Register = () => {
     const password = form.password.value;
 
     /* must4 : set loading to true */
-    setLoading(true);
+    setUserLoading(true);
 
     /* must5 : create user with email and password */
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        setUser(user);
+        console.log(user);
         setSuccess("user created successfully");
         setLoading(false);
         form.reset();
+        navigate(from, { replace: true });
         // ...
       })
       .catch((error) => {
@@ -50,7 +56,6 @@ const Register = () => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        setUser({});
         setSuccess("user logged out successfully");
       })
       .catch((error) => {
