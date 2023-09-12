@@ -8,7 +8,7 @@ import { Outlet } from "react-router-dom";
 function App() {
   return (
     <>
-      <h1>Firebase + React + Router</h1>
+      <h1>Firebase + React + Router + RTK + RTK-Query</h1>
       <small>Firebase for Google & Github</small>
       <br />
       <br />

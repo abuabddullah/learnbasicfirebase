@@ -16,6 +16,10 @@ import Profile from "./components/firebase/emailPass/Profile/Profile.jsx";
 import EmailPassHome from "./components/firebase/emailPass/EmailPassHome.jsx";
 import UserContextProvider from "./components/firebase/emailPass/UserContextProvider/UserContextProvider.jsx";
 import ProtectedRoute from "./components/firebase/emailPass/ProtectedRoute/ProtectedRoute.jsx";
+import RTKPosts from "./components/RTKnQuery/RTKPosts/RTKPosts.jsx";
+import store from "./app/store.js";
+import { Provider } from "react-redux";
+import PostDetails from "./components/RTKnQuery/RTKPosts/PostDetails/PostDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -68,8 +72,22 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "/rtkPosts",
+        element: <RTKPosts />,
+      },
+      {
+        path: "/rtkPosts/:id",
+        element: <PostDetails />,
+        /* loader: ({ params }) =>
+          fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`), */
+      },
+      {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "*",
+        element: <div>Not Found 404!</div>,
       },
     ],
   },
@@ -78,7 +96,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <UserContextProvider>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </UserContextProvider>
   </React.StrictMode>
 );

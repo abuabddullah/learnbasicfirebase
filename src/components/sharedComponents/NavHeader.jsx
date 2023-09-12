@@ -18,8 +18,10 @@ const NavHeader = () => {
   };
   return (
     <nav>
-      <Link to="/">Home</Link> <ActiveLink to="/firebase">Firebase</ActiveLink>{" "}
+      <Link to="/">Home</Link> {" "}
+      <ActiveLink to="/firebase">Firebase</ActiveLink>{" "}
       <Link to="/contact">Contact</Link>{" "}
+      <ActiveLink to="/rtkPosts">RTKPosts</ActiveLink>{" "}
       {user && <button onClick={handleLogout}>Logout</button>}
     </nav>
   );
